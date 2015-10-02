@@ -1,0 +1,34 @@
+# ScalaTest Matcher/Property-based testing Live Coding materials
+
+## Introduction
+
+This is a companion repository for a presentation I have cooked on various interesting matchers in ScalaTest. The
+inspiration stemmed from observing that many people end up using the very basic matchers (`equal`, `be`), since
+invariably it's faster to just write it out than open up the docs.
+
+Unfortunately, this leads to the tests, deprived of the more expressive features of ScalaTest, ending up with
+less self-documenting, having poorly-worded assertions ("true does not equal false"), or just being flat out incorect.
+
+## Description
+
+The example domain models an API used to handle various kinds of sensors (temperature, radiation, etc.). Its hierarchies
+stem from the following roots:
+
+ - `Sensor` - abstraction of a sensor, has a name (describing the type, e.g. "Temp"), a `long` identifier, and an `Option[Double]`
+ value. Can be initialized or not.
+ - `SensorCollector` - mostly a trivial container for `Sensor`s, subtypes contain some extra functionality.
+ - `SensorDataPoint` - used for Property-based tests, a single data point with a timestamp and a value
+ - `SensorDataDisplay` - a sortable container for `SensorDataPoint`s.
+
+There are two test classes (both a `FlatSpec`), designed to be viewed side by side:
+
+- `GoofusTest` - contains the complete suite of test cases
+https://en.wikipedia.org/w/index.php?title=Highlights_for_Children&oldid=681886586#Regular_magazine_features[written naïvely or otherwise without a care].
+- `GallantTest` - contains the "correct" form of the same suite of classes, rewritten with a fuller usage of ScalaTest features.
+
+It is important to note that *both the domain classes and `GoofusTest` have deliberate errors, mistakes, and omissions* - this
+is to showcase various issues relating to assertion error output, test subcases, etc.
+
+## License
+
+See LICENSE.
