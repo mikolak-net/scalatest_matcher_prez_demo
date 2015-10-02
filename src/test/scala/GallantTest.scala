@@ -109,7 +109,7 @@ class GallantTest extends FlatSpec with MustMatchers with PropertyChecks {
     val tested = new MultiSensorCollector(List(DummySensor(searchedName, 10, () => 0)))
 
     import org.scalatest.OptionValues._
-    tested.findByType(searchedName).value.name must be(searchedName)
+    tested.findByName(searchedName).value.name must be(searchedName)
   }
 
 
@@ -119,12 +119,12 @@ class GallantTest extends FlatSpec with MustMatchers with PropertyChecks {
     val tested = new MultiSensorCollector(List(DummySensor(searchedName, firstId, () => 0),DummySensor(searchedName, 11, () => 0)))
 
     import org.scalatest.OptionValues._
-    tested.findByType(searchedName).value.name must have (
+    tested.findByName(searchedName).value.name must have (
       'name (searchedName),
       'id (firstId)
     )
     //alternatively
-    tested.findByType(searchedName).value must haveId(firstId)
+    tested.findByName(searchedName).value must haveId(firstId)
   }
 
 

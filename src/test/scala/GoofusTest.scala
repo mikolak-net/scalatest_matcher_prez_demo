@@ -106,7 +106,7 @@ class GoofusTest extends FlatSpec with MustMatchers with PropertyChecks {
     val searchedName = "something"
     val tested = new MultiSensorCollector(List(DummySensor(searchedName, 10, () => 0)))
 
-    tested.findByType(searchedName).get.name must be(searchedName)
+    tested.findByName(searchedName).get.name must be(searchedName)
   }
 
 
@@ -115,8 +115,8 @@ class GoofusTest extends FlatSpec with MustMatchers with PropertyChecks {
     val firstId = 10l
     val tested = new MultiSensorCollector(List(DummySensor(searchedName, firstId, () => 0),DummySensor(searchedName, 11, () => 0)))
 
-    tested.findByType(searchedName).get.name must be(searchedName)
-    tested.findByType(searchedName).get.id must be(firstId)
+    tested.findByName(searchedName).get.name must be(searchedName)
+    tested.findByName(searchedName).get.id must be(firstId)
   }
 
 
@@ -130,7 +130,7 @@ class GoofusTest extends FlatSpec with MustMatchers with PropertyChecks {
   }
 
   "A TemperatureSensor" must "switch to initialized status when required" in {
-    val tested = new TemperatureSensor(30l)
+    val tested = new BadTemperatureSensor(30l)
 
     tested.initialize
 

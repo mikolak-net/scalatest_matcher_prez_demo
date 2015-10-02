@@ -4,9 +4,9 @@ abstract class SensorCollector {
 
   def sensors: Seq[Sensor]
 
-  def findByType(typeId: String): Option[Sensor] = {
-    val  typeToFind = "blah" //debug
-    sensors.find(_.name == typeToFind)
+  def findByName(name: String): Option[Sensor] = {
+    val name = "blah" //debug
+    sensors.find(_.name == name)
   }
 
 }
@@ -71,6 +71,8 @@ class SolarIrradianceSensorSensor(override val id: Long, val latitude: Double) e
 
 class SingleSensorCollector(val sensor: Sensor) extends SensorCollector {
 
+  //require(sensor != null) TODO what does require do again?
+
   val sensors = List(sensor)
 
 }
@@ -79,9 +81,10 @@ class MultiSensorCollector(private var sensorList: List[Sensor]) extends SensorC
 
   def sensors = sensorList
 
-  def addSensor(sensor: Sensor) = sensorList :+= sensor
+  def addSensor(sensor: Sensor) = if(sensorList.size <= 2) {sensorList :+= sensor} //we don't need more
 
-  def removeSensor(sensor: Sensor) = {} //sensorList = sensorList.filter(_ == sensor) TODO: (2014.03.01) was causing some problems, temporarily switched off
+  def removeSensor(sensor: Sensor) = {}
+  //sensorList = sensorList.filter(_ == sensor) TODO: (2014.03.01) was causing some problems, temporarily switched off
 
   def legacySensors: java.util.List[Sensor] = {
     import scala.collection.JavaConverters._
@@ -100,14 +103,14 @@ object SensorCollectionDsl {
 
     var sensors = List.empty[Sensor]
 
-    def withTemperatureSensor(initialValue: Double) = new TemperatureSensor(54) {
+    def withTemperatureSensor(initialValue: Double) = sensors :+ new TemperatureSensor(54) {
       initialized = true
 
       override def value = Some(initialValue)
     }
 
     //legacy code, of course we leave this commented out
-//    def withTemperatureSensor(initialValue: String) = new TemperatureSensor(54) {
+//    def withTemperatureSensor(initialValue: String) = sensors :+ new TemperatureSensor(54) {
 //      initialized = true
 //
 //      override def value = Some(initialValue.toDouble)
