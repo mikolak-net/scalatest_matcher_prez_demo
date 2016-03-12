@@ -31,4 +31,4 @@ is to showcase various issues relating to assertion error output, test subcases,
 
 ## License
 
-See LICENSE.
+See link:LICENSE[LICENSE].
