@@ -27,7 +27,7 @@ https://en.wikipedia.org/w/index.php?title=Highlights_for_Children&oldid=6818865
 - `GallantTest` - contains the "correct" form of the same suite of classes, rewritten with a fuller usage of ScalaTest features.
 
 It is important to note that *both the domain classes and `GoofusTest` have deliberate errors, mistakes, and omissions* - this
-is to showcase various issues relating to assertion error output, test subcases, etc.
+is to showcase various issues relating to assertion error output, test subcases, etc. .
 
 ## License
 
